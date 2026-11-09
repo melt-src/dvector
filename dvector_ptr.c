@@ -1,0 +1,105 @@
+
+/* dvector_ptr.c */
+
+#include <stdlib.h>
+#include "dvector.h"
+
+#define INIT_CAP 4
+#define GROW_TRESH 1000
+
+struct dvector
+{
+    void **elements;
+    size_t capacity;
+    size_t size;
+};
+
+/* grow
+ *
+ * Grow vector 'v's maximum capacity. Returns: 0 if there was no
+ * error, 1 if the vector was NIL, 2 if there wasn't enough
+ * memory. */
+static int grow(dvector *v)
+{
+    if (!v) return 1;
+    size_t nc;
+    if (v->capacity <= GROW_TRESH)
+    {
+        nc = v->capacity * 2;
+    }
+    else
+    {
+        nc = v->capacity * 1.5;
+    }
+    void **ne = (void **) realloc(v->elements, nc * sizeof(void *));
+    if (!ne) return 2;
+    v->elements = ne;
+    v->capacity = nc;
+    return 0;
+}
+
+int dvector_create(dvector **nvec)
+{
+    dvector *v = malloc(sizeof(struct dvector));
+    if (!v) return 1;
+    v->elements = (void **) malloc(INIT_CAP * sizeof(void *));
+    if (!v->elements)
+    {
+        free(v);
+        return 1;
+    }
+    v->capacity = INIT_CAP;
+    v->size = 0;
+    *nvec = v;
+    return 0;
+}
+
+int dvector_destroy(dvector *v)
+{
+    if (!v) return 1;
+    for (size_t i = 0; i < v->size; i++)
+    {
+        free(v->elements[i]);
+    }
+    free(v->elements);
+    free(v);
+    return 0;
+}
+
+/* append
+ *
+ * Tail insert the element 'e' into the vector 'v'. Returns: 0 if
+ * there was no error, 1 if the vector is NIL, 2 if the
+ * element is NIL, and 3 if grow fails to allocate new memory. */
+int dvector_append(dvector *v, void *e)
+{
+    if (!v) return 1;
+    if (!e) return 2;
+    if (v->size == v->capacity)
+    {
+        if (grow(v) == 2) return 3;
+    }
+    v->elements[v->size] = e;
+    v->size++;
+    return 0;
+}
+
+int dvector_size(dvector *v)
+{
+    if (!v) return -1;
+    return v->size;
+}
+
+int dvector_capacity(dvector *v)
+{
+    if (!v) return -1;
+    return v->capacity;
+}
+
+void *dvector_read_element(dvector *v, size_t i)
+{
+    if (!v) return NULL;
+    return v->elements[i];
+}
+
+/* dvector_ptr.c ends here */

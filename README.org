@@ -1,0 +1,22 @@
+* D(ynamic) Vector
+
+  This header file provides the declaration of both the structured data and
+  functions implementing basic operations on a dynamic vector, such as:
+
+  |--------------+----------------------------------------------------------|
+  | Operation    | Description                                              |
+  |--------------+----------------------------------------------------------|
+  | =insert(x, i)= | inserts the key 'x' in position 'i'.                     |
+  | =delete(x)=    | removes the key 'x' from the vector.                     |
+  | =search(x)=    | searches key 'x' in the vector and returns its position. |
+  |--------------+----------------------------------------------------------|
+
+  but also:
+
+  |------------+-------------------------------------|
+  | =prepend(x)= | head inserts the key 'x'.           |
+  | =append(x)=  | tail inserts the key 'x'.           |
+  | =delete(x)=  | deletes the key 'x'.                |
+  | =remove(x)=  | deletes the key 'x' and returns it. |
+  | =empty()=    | checks if the vector is empty.      |
+  |------------+-------------------------------------|
