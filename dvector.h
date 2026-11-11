@@ -28,7 +28,7 @@
 
 typedef struct dvector dvector;
 
-int dvector_create(dvector **);
+dvector *dvector_create(void);
 int dvector_destroy(dvector *);
 
 int dvector_insert(dvector *, void *, size_t);

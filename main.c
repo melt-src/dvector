@@ -5,32 +5,30 @@
 int main(int argc, char **argv)
 {
     /* arguments parsing */
-    if (argc < 2)
-    {
-        fprintf(stderr, "usage: append <elements>\n");
+    if (argc < 2) {
+        fprintf(stderr, "usage: test <elements>\n");
     }
 
     /* creating a new dynamic vector */
-    dvector *new_vec;
+    dvector *new_vec = dvector_create();
 
-    if (dvector_create(&new_vec))
-    {
+    if (!new_vec) {
         fprintf(stderr, "error: could not create new vector\n");
         exit(1);
     }
 
     /* appending arguments */
-    for (int i = 1; i < argc; i++)
-    {
+    for (int i = 1; i < argc; i++) {
         int *element = malloc(sizeof(int));
-        if (!element)
-        {
+
+        if (!element) {
             fprintf(stderr, "error: could not allocate element\n");
             exit(1);
         }
+
         *element = atoi(argv[i]);
-        if (dvector_append(new_vec, element))
-        {
+
+        if (dvector_append(new_vec, element)) {
             fprintf(stderr, "error: could not append element\n");
             exit(1);
         }
@@ -39,8 +37,7 @@ int main(int argc, char **argv)
     /* printing arguments */
     int *n = NULL;
 
-    for (int i = 0; i < dvector_size(new_vec); i++)
-    {
+    for (int i = 0; i < dvector_size(new_vec); i++) {
          n = (int *) dvector_read_element(new_vec, i);
          printf("%d ", *n);
     }
@@ -48,8 +45,7 @@ int main(int argc, char **argv)
     printf("\n");
 
     /* destroying the vector */
-    if (dvector_destroy(new_vec))
-    {
+    if (dvector_destroy(new_vec)) {
         fprintf(stderr, "error: could not destroy vector\n");
         exit(1);
     }

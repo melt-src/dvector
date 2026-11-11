@@ -38,20 +38,23 @@ static int grow(dvector *v)
     return 0;
 }
 
-int dvector_create(dvector **nvec)
+dvector *dvector_create(void)
 {
-    dvector *v = malloc(sizeof(struct dvector));
-    if (!v) return 1;
+    dvector *v = malloc(sizeof(*v));
+
+    if (!v) return NULL;
+
     v->elements = (void **) malloc(INIT_CAP * sizeof(void *));
-    if (!v->elements)
-    {
+
+    if (!v->elements) {
         free(v);
-        return 1;
+        return NULL;
     }
+
     v->capacity = INIT_CAP;
     v->size = 0;
-    *nvec = v;
-    return 0;
+
+    return v;
 }
 
 int dvector_destroy(dvector *v)
@@ -75,12 +78,13 @@ int dvector_append(dvector *v, void *e)
 {
     if (!v) return 1;
     if (!e) return 2;
-    if (v->size == v->capacity)
-    {
+    if (v->size == v->capacity) {
         if (grow(v) == 2) return 3;
     }
+
     v->elements[v->size] = e;
     v->size++;
+
     return 0;
 }
 
