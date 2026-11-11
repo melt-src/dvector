@@ -41,7 +41,7 @@ int dvector_append(dvector *, void *);
 // bool dvector_empty(const dvector *)
 int dvector_size(dvector *);
 int dvector_capacity(dvector *);
-void *dvector_read_element(dvector *, size_t);
+void *dvector_get_element(dvector *, size_t);
 
 #endif /* DVECTOR_H */
 

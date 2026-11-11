@@ -100,7 +100,7 @@ int dvector_capacity(dvector *v)
     return v->capacity;
 }
 
-void *dvector_read_element(dvector *v, size_t i)
+void *dvector_get_element(dvector *v, size_t i)
 {
     if (!v) return NULL;
     return v->elements[i];
