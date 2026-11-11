@@ -22,19 +22,22 @@ struct dvector
 static int grow(dvector *v)
 {
     if (!v) return 1;
+
     size_t nc;
-    if (v->capacity <= GROW_TRESH)
-    {
+
+    if (v->capacity <= GROW_TRESH) {
         nc = v->capacity * 2;
-    }
-    else
-    {
+    } else {
         nc = v->capacity * 1.5;
     }
+
     void **ne = (void **) realloc(v->elements, nc * sizeof(void *));
+
     if (!ne) return 2;
+
     v->elements = ne;
     v->capacity = nc;
+
     return 0;
 }
 
@@ -57,16 +60,15 @@ dvector *dvector_create(void)
     return v;
 }
 
-int dvector_destroy(dvector *v)
+void dvector_destroy(dvector *v)
 {
-    if (!v) return 1;
-    for (size_t i = 0; i < v->length; i++)
-    {
-        free(v->elements[i]);
-    }
+    if (!v) return;
+    // for (size_t i = 0; i < v->length; i++)
+    // {
+    //     free(v->elements[i]);
+    // }
     free(v->elements);
     free(v);
-    return 0;
 }
 
 /* append
