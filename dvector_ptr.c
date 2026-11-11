@@ -11,7 +11,7 @@ struct dvector
 {
     void **elements;
     size_t capacity;
-    size_t size;
+    size_t length;
 };
 
 /* grow
@@ -52,7 +52,7 @@ dvector *dvector_create(void)
     }
 
     v->capacity = INIT_CAP;
-    v->size = 0;
+    v->length = 0;
 
     return v;
 }
@@ -60,7 +60,7 @@ dvector *dvector_create(void)
 int dvector_destroy(dvector *v)
 {
     if (!v) return 1;
-    for (size_t i = 0; i < v->size; i++)
+    for (size_t i = 0; i < v->length; i++)
     {
         free(v->elements[i]);
     }
@@ -78,31 +78,37 @@ int dvector_append(dvector *v, void *e)
 {
     if (!v) return 1;
     if (!e) return 2;
-    if (v->size == v->capacity) {
+    if (v->length == v->capacity) {
         if (grow(v) == 2) return 3;
     }
 
-    v->elements[v->size] = e;
-    v->size++;
+    v->elements[v->length] = e;
+    v->length++;
 
     return 0;
 }
 
-int dvector_size(dvector *v)
+int dvector_length(const dvector *v)
 {
     if (!v) return -1;
-    return v->size;
+    return v->length;
 }
 
-int dvector_capacity(dvector *v)
+int dvector_capacity(const dvector *v)
 {
     if (!v) return -1;
     return v->capacity;
 }
 
-void *dvector_get_element(dvector *v, size_t i)
+int dvector_empty(const dvector *v)
 {
-    if (!v) return NULL;
+    if (!v) return 2;
+    return v->length == 0;
+}
+
+void *dvector_get_element(const dvector *v, size_t i)
+{
+    if (!v || dvector_empty(v) || i > dvector_length(v)) return NULL;
     return v->elements[i];
 }
 

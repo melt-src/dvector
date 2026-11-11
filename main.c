@@ -37,8 +37,8 @@ int main(int argc, char **argv)
     /* printing arguments */
     int *n = NULL;
 
-    for (int i = 0; i < dvector_size(new_vec); i++) {
-         n = (int *) dvector_read_element(new_vec, i);
+    for (int i = 0; i < dvector_length(new_vec); i++) {
+         n = (int *) dvector_get_element(new_vec, i);
          printf("%d ", *n);
     }
 
