@@ -114,10 +114,4 @@ void *dvector_get_element(const dvector *v, size_t i)
     return v->elements[i];
 }
 
-void **dvector_get_elements(const dvector *v)
-{
-    if (!v) return NULL;
-    return v->elements;
-}
-
 /* dvector_ptr.c ends here */
