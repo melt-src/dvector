@@ -39,7 +39,6 @@ int dvector_empty(const dvector *);
 int dvector_length(const dvector *);
 int dvector_capacity(const dvector *);
 void *dvector_get_element(const dvector *, size_t);
-void **dvector_get_elements(const dvector *);
 
 #endif /* DVECTOR_H */
 
