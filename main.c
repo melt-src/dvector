@@ -45,10 +45,6 @@ int main(int argc, char **argv)
     printf("\n");
 
     /* destroying the vector */
-    if (dvector_destroy(new_vec)) {
-        fprintf(stderr, "error: could not destroy vector\n");
-        exit(1);
-    }
-
+    dvector_destroy(new_vec);
     return 0;
 }

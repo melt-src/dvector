@@ -1,24 +1,22 @@
-/* ===============| --------------- | ===============
+/* ============================ | --------------- | ============================
  *
- * D(ynamic) Vector
+ * D(ynamic)Vector
  *
- * This header file provides the declaration of both the structured data and
+ * This header file provides the prototipes of structured data and
  * functions implementing basic operations on a dynamic vector, such as:
  *
- *   - insert(x, i): inserts the key 'x' in position 'i'.
- *   - delete(x)   : removes the key 'x' from the vector.
- *   - search(x)   : searches for the key 'x' in the vector and
- *                   returns its position.
+ * |--------------+----------------------------------------------------------|
+ * | Operation    | Description                                              |
+ * |--------------+----------------------------------------------------------|
+ * | insert(x, i) | inserts the key 'x' in position 'i'.                     |
+ * | delete(x)    | removes the key 'x' from the vector.                     |
+ * | search(x)    | searches key 'x' in the vector and returns its position. |
+ * |--------------+----------------------------------------------------------|
  *
- * And also:
+ * See doc files for more.
  *
- *   - prepend(x)    : head inserts the key 'x'.
- *   - append(x)     : tail inserts the key 'x'.
- *   - delete(x)     : deletes the key 'x'.
- *   - remove(x)     : deletes the key 'x' and returns it.
- *   - empty()       : checks if the vector is empty.
- *
- * ===============| --------------- | =============== */
+ * ============================ | --------------- | ========================== */
+
 
 #ifndef DVECTOR_H
 #define DVECTOR_H
@@ -41,6 +39,7 @@ int dvector_empty(const dvector *);
 int dvector_length(const dvector *);
 int dvector_capacity(const dvector *);
 void *dvector_get_element(const dvector *, size_t);
+void **dvector_get_elements(const dvector *);
 
 #endif /* DVECTOR_H */
 
